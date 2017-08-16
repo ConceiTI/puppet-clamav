@@ -1,0 +1,15 @@
+{
+  "name": "conceiti-clamav",
+  "version": "0.0.1",
+  "author": "conceiti",
+  "summary": "This module install/configure clamav, clamav-milter",
+  "license": "Apache-2.0",
+  "source": "https://github.com/ConceiTI/puppet-clamav.git",
+  "project_page": "https://github.com/ConceiTI/puppet-clamav",
+  "issues_url": "https://github.com/ConceiTI/puppet-clamav/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ],
+  "data_provider": null
+}
+
