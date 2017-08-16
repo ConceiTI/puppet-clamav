@@ -7,6 +7,54 @@
   "source": "https://github.com/ConceiTI/puppet-clamav.git",
   "project_page": "https://github.com/ConceiTI/puppet-clamav",
   "issues_url": "https://github.com/ConceiTI/puppet-clamav/issues",
+    "tags": [
+    "clam",
+    "clamav",
+    "clamscan",
+    "clamdscan",
+    "clamd",
+    "freshclam",
+    "virus",
+    "antivirus"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8",
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04"
+      ]
+    }
+  ],
+
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
