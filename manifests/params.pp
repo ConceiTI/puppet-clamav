@@ -13,7 +13,7 @@ class clamav::params {
   $clamav_milter_service_ensure  = 'running'
   $clamav_milter_service_enable  = true
   $clamav_milter_package_version = 'latest'
-
+ 
   #
   # freshclam vars
   $freshclam_service_ensure      = 'running'
@@ -39,9 +39,26 @@ class clamav::params {
 
       #clamav-milter
       $clamav_milter_package = ['clamav-milter']
+      $clamav_milter_config      = '/etc/clamav/clamav-milter.conf'
+      $clamav_milter_service     = 'clamav-milter'
+			$clamav_milter_user								= 'clamav'
+			$clamav_milter_group								= 'clamav'
+      $clamav_milter_miltersocket   = '/var/run/clamav/clamav-milter.ctl'
+      $clamav_milter_logfile       = '/var/log/clamav/clamav-milter.log'
+      $clamav_milter_pidfile   = '/var/run/clamav/clamav-milter.pid'
+      $clamav_milter_logrotate          = true
+      $clamav_milter_logsyslog          = false
+      $clamav_milter_temporarydirectory = '/tmp'
 
       #freshclam
       $freshclam_package = ['clamav-freshclam']
+      $freshclam_config  = '/etc/clamav/freshclam.conf'
+      $freshclam_service  = 'clamav-freshclam'
+      $freshclam_databaseowner = 'clamav'
+      $freshclam_updatelogfile = '/var/log/clamav/freshclam.log'
+      $freshclam_sysconfig = ''
+      $freshclam_delay     = undef
+      $freshclam_default_pidfile        = '/var/run/clamav/freshclam.pid'
 
     }
     'RedHat', 'CentOS' : {
@@ -61,10 +78,26 @@ class clamav::params {
 
       #clamav-milter
       $clamav_milter_package = ['clamav-milter','clamav-milter-systemd']
+      $clamav_milter_config      = '/etc/mail/clamav-milter.conf'
+      $clamav_milter_service     = 'clamav-milter'
+      $clamav_milter_user               = 'clamilt'
+      $clamav_milter_group                = 'virusgroup'
+      $clamav_milter_miltersocket   = '/var/run/clamav-milter/clamav-milter.socket'
+      $clamav_milter_logfile       = '/var/log/clamav-milter.log'
+      $clamav_milter_pidfile   = '/var/run/clamav-milter/clamav-milter.pid'
+      $clamav_milter_logrotate          = true
+      $clamav_milter_logsyslog          = true
+      $clamav_milter_temporarydirectory = '/var/tmp'
 
       #freshclam
       $freshclam_package = ['clamav-update']
-
+      $freshclam_config  = '/etc/freshclam.conf'
+      $freshclam_service  = ''
+      $freshclam_databaseowner = 'clamupdate'
+      $freshclam_updatelogfile = '/var/log/freshclam.log'
+      $freshclam_sysconfig = '/etc/sysconfig/freshclam'
+      $freshclam_delay     = undef
+      $freshclam_default_pidfile        = /var/run/freshclam.pid
     }
     default : {
       notice('This OS not supported')
