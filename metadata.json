@@ -7,6 +7,7 @@
   "source": "https://github.com/ConceiTI/puppet-clamav.git",
   "project_page": "https://github.com/ConceiTI/puppet-clamav",
   "issues_url": "https://github.com/ConceiTI/puppet-clamav/issues",
+  "description": "Clamav, clamav-milter and freshclam module",
     "tags": [
     "clam",
     "clamav",
@@ -56,8 +57,14 @@
   ],
 
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"stahnma/epel","version_requirement":">= 0.0.6 < 2.0.0"}
   ],
+  "requirements": [
+  {
+    "name": "puppet",
+    "version_requirement": ">=4.4.2"
+  }
+],
   "data_provider": null
 }
-

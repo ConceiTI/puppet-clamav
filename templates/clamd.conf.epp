@@ -1,0 +1,3 @@
+<% $clamav::clamd::clamd_options.each |$key, $value| { -%>
+<%= $key %> = <%= $value %>
+<% } -%>
