@@ -11,12 +11,12 @@ class clamav::clamd (
   $clamd_service_enable                     = $clamav::clamd_service_enable,
   $clamd_algorithmic_detection              =  true,
   $clamd_allow_all_match_scan               =  true,
-  $clamd_allow_supplementary_groups         =  true,
+  $clamd_allow_supplementary_groups         =  $clamav::clamd_allow_supplementary_groups,
   $clamd_archive_block_encrypted            =  false,
   $clamd_bytecode                           =  true,
   $clamd_bytecode_security                  =  'TrustSigned',
   $clamd_bytecode_timeout                   =  '60000',
-  $clamd_command_read_timeout               =  '5',
+  Optional[Integer] $clamd_command_read_timeout = undef, #5
   $clamd_cross_filesystems                  =  true,
   $clamd_database_directory                 =  $clamav::clamd_databasedirectory,
   $clamd_debug                              =  false,
@@ -38,7 +38,7 @@ class clamav::clamd (
   $clamd_local_socket_mode                  = '666',
   $clamd_log_clean                          = false,
   $clamd_log_facility                       = 'LOG_LOCAL6',
-  $clamd_log_file                           = $clamav::clamd_logfile,
+  Optional[String] $clamd_log_file          = $clamav::clamd_log_file,
   $clamd_log_file_max_size                  = '0',
   $clamd_log_fileunlock                     = false,
   $clamd_log_rotate                         = $clamav::clamd_logrotate,
@@ -155,11 +155,20 @@ class clamav::clamd (
     ensure => $clamd_package_version,
   }
 
-  file { 'clamd_file':
-    ensure  => file,
-    name    => $clamd_config,
-    mode    => '0644',
-    content => epp('clamav/clamd.conf'),
+  $clamd_options.each | $key, $value| {
+    if $value == undef {
+      $change = "rm ${key}"
+    }else {
+      $change = "set  ${key} ${value}"
+    }
+
+    augeas { "manage clamd '${key}' ":
+      incl    => $clamd_config,
+      lens    => 'Clamav.lns',
+      changes => $change,
+      require => Package[$clamd_package],
+      notify  => Service['clamd_service'],
+    }
   }
 
   service { 'clamd_service':
@@ -168,8 +177,6 @@ class clamav::clamd (
     enable     => $clamd_service_enable,
     hasrestart => true,
     hasstatus  => true,
-    subscribe  => [Package[$clamd_package], File['clamd_file']],
   }
 
-  Package[$clamd_package] -> File['clamd_file'] ~> Service['clamd_service']
 }

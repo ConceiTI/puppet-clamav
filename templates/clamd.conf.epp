@@ -1,3 +1,10 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+##
+## Example config file for the Clam AV daemon
+## Please read the clamd.conf(5) manual before editing this file.
+##
+
 <% $clamav::clamd::clamd_options.each |$key, $value| { -%>
 <%= $key %> = <%= $value %>
 <% } -%>

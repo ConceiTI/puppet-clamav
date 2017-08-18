@@ -28,14 +28,12 @@
 # --------
 #
 # @example
-#    class { 'clamav':
-#      servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#    }
+#    class { 'clamav': }
 #
 # Authors
 # -------
 #
-# Author Name <author@domain.com>
+# Author Name <puppet@conceiti.com.br>
 #
 # Copyright
 # ---------
@@ -58,6 +56,8 @@ class clamav (
   String  $clamd_group                       = $clamav::params::clamd_group,
   String  $clamd_config	                     = $clamav::params::clamd_config,
   Boolean $clamd_install                     = true,
+  Optional[String] $clamd_log_file             = $clamav::params::clamd_logfile,
+  Optional[Boolean] $clamd_allow_supplementary_groups         =  $clamav::params::clamd_allow_supplementary_groups,
 
   #clamav milter
   String  $clamav_milter_service_ensure     = $clamav::params::clamav_milter_service_ensure,
@@ -87,9 +87,7 @@ class clamav (
   String  $freshclam_databaseowner       = $clamav::params::freshclam_databaseowner,
   String  $freshclam_updatelogfile       = $clamav::params::freshclam_updatelogfile,
   Optional[String]  $freshclam_sysconfig = $clamav::params::freshclam_sysconfig,
-  Optional[String]  $freshclam_delay     = $clamav::params::freshclam_delay,
   String  $freshclam_pidfile             = $clamav::params::freshclam_pidfile,
-  Hash    $freshclam_options             = $clamav::params::freshclam_options,
   Boolean $freshclam_install             = true,
 
 )inherits clamav::params {
@@ -100,5 +98,9 @@ class clamav (
     Class { '::clamav::clamd': }
   }
 
+  if $freshclam_install {
+    Class { '::clamav::freshclam': }
+  }
+#  Class { '::clamav::clamav_milter': }
 
 }
