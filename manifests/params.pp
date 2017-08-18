@@ -42,7 +42,6 @@ class clamav::params {
       $clamd_temporarydirectory = undef
       $clamd_user               = 'clamav'
       $clamd_group              = 'clamav'
-      $clamd_allow_supplementary_groups         =  undef
 
       #clamav-milter
       $clamav_milter_package            = ['clamav-milter']
@@ -75,16 +74,16 @@ class clamav::params {
         $clamd_package         = ['clamav']
         $clamav_milter_package = ['clamav-milter']
         $freshclam_package     = ['clamav-db']
-        $clamd_service            = 'clamd'
-        $clamav_milter_config             = '/etc/clamav-milter.conf'
-        $clamav_milter_user               = 'clam'
+        $clamd_service         = 'clamd'
+        $clamav_milter_config  = '/etc/clamav-milter.conf'
+        $clamav_milter_user    = 'clam'
       }else{
         $clamd_package         = ['clamav','clamav-scanner','clamav-scanner-systemd']
         $clamav_milter_package = ['clamav-milter','clamav-milter-systemd']
         $freshclam_package     = ['clamav-update']
-        $clamd_service            = 'clamd@scan'
-        $clamav_milter_config             = '/etc/mail/clamav-milter.conf'
-        $clamav_milter_user               = 'clamilt'
+        $clamd_service         = 'clamd@scan'
+        $clamav_milter_config  = '/etc/mail/clamav-milter.conf'
+        $clamav_milter_user    = 'clamilt'
       }
 
       #clamd
@@ -98,8 +97,7 @@ class clamav::params {
       $clamd_temporarydirectory = undef
       $clamd_user               = 'clamscan'
       $clamd_group              = 'virusgroup'
-      $clamd_allow_supplementary_groups         =  true
-
+      
       #clamav-milter
       $clamav_milter_service            = 'clamav-milter'
       $clamav_milter_group              = 'virusgroup'

@@ -56,8 +56,7 @@ class clamav (
   String  $clamd_group                       = $clamav::params::clamd_group,
   String  $clamd_config	                     = $clamav::params::clamd_config,
   Boolean $clamd_install                     = true,
-  Optional[String] $clamd_log_file             = $clamav::params::clamd_logfile,
-  Optional[Boolean] $clamd_allow_supplementary_groups         =  $clamav::params::clamd_allow_supplementary_groups,
+  Optional[String] $clamd_log_file           = $clamav::params::clamd_logfile,
 
   #clamav milter
   String  $clamav_milter_service_ensure     = $clamav::params::clamav_milter_service_ensure,
@@ -101,6 +100,6 @@ class clamav (
   if $freshclam_install {
     Class { '::clamav::freshclam': }
   }
-#  Class { '::clamav::clamav_milter': }
+  Class { '::clamav::clamav_milter': }
 
 }

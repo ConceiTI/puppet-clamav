@@ -36,7 +36,6 @@ class clamav::freshclam (
   String            $update_log_file            = $clamav::freshclam_updatelogfile,
   Boolean           $safe_browsing              = false,
   Boolean           $notify_clamd               = false,
-  #'AllowSupplementaryGroups' => $allow_supplementary_groups,
   Hash              $freshclam_options          = {
     'Bytecode'                 => $bytecode,
     'Checks'                   => $checks,
@@ -85,15 +84,15 @@ class clamav::freshclam (
       require => Package[$freshclam_package],
       #notify  => Service['freshclam_service'],
     }
-}
-
-if $freshclam_service {
-  service { 'freshclam_service':
-    ensure     => $freshclam_service_ensure,
-    name       => $freshclam_service,
-    enable     => $freshclam_service_enable,
-    hasrestart => true,
-    hasstatus  => true,
   }
- }
+
+  if $freshclam_service {
+    service { 'freshclam_service':
+      ensure     => $freshclam_service_ensure,
+      name       => $freshclam_service,
+      enable     => $freshclam_service_enable,
+      hasrestart => true,
+      hasstatus  => true,
+    }
+  }
 }

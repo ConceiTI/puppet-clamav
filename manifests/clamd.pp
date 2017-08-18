@@ -11,7 +11,7 @@ class clamav::clamd (
   Boolean           $clamd_service_enable                         = $clamav::clamd_service_enable,
   Boolean           $clamd_algorithmic_detection                  = true,
   Boolean           $clamd_allow_all_match_scan                   = true,
-  Optional[String]  $clamd_allow_supplementary_groups             = $clamav::clamd_allow_supplementary_groups,
+  #Boolean           $clamd_allow_supplementary_groups             = $clamav::clamd_allow_supplementary_groups,
   Boolean           $clamd_archive_block_encrypted                = false,
   Boolean           $clamd_bytecode                               = true,
   Optional[String]  $clamd_bytecode_security                      = 'TrustSigned',
@@ -80,7 +80,6 @@ class clamav::clamd (
   Hash              $clamd_options                                = {
     'AlgorithmicDetection'           => $clamd_algorithmic_detection,
     'AllowAllMatchScan'              => $clamd_allow_all_match_scan,
-    'AllowSupplementaryGroups'       => $clamd_allow_supplementary_groups,
     'ArchiveBlockEncrypted'          => $clamd_archive_block_encrypted,
     'Bytecode'                       => $clamd_bytecode,
     'BytecodeSecurity'               => $clamd_bytecode_security,
@@ -166,16 +165,15 @@ class clamav::clamd (
       lens    => 'Clamav.lns',
       changes => $change,
       require => Package[$clamd_package],
-      notify  => Service['clamd_service'],
+      notify  => Service[$clamd_service],
     }
   }
 
-  service { 'clamd_service':
+  service { $clamd_service:
     ensure     => $clamd_service_ensure,
     name       => $clamd_service,
     enable     => $clamd_service_enable,
     hasrestart => true,
     hasstatus  => true,
   }
-
 }
