@@ -2,27 +2,23 @@
 class clamav::params {
 
   # Default vars
-  #
   # Clamav vars
   $clamd_service_ensure          = 'running'
   $clamd_service_enable          = true
   $clamd_package_version         = 'latest'
   $clamd_install                 = true
 
-  #
   # Clamav milter vars
   $clamav_milter_service_ensure  = 'running'
   $clamav_milter_service_enable  = true
   $clamav_milter_package_version = 'latest'
   $clamd_milter_install          = true
 
-  #
   # freshclam vars
   $freshclam_service_ensure      = 'running'
   $freshclam_service_enable      = true
   $freshclam_package_version     = 'latest'
   $freshclam_install             = true
-
 
   case $facts['os']['name'] {
     'Debian', 'Ubuntu' : {
@@ -64,7 +60,6 @@ class clamav::params {
       $freshclam_updatelogfile = '/var/log/clamav/freshclam.log'
       $freshclam_sysconfig     = undef
       $freshclam_pidfile       = '/var/run/clamav/freshclam.pid'
-
     }
     'RedHat', 'CentOS' : {
       #depedent the epel
@@ -97,7 +92,7 @@ class clamav::params {
       $clamd_temporarydirectory = undef
       $clamd_user               = 'clamscan'
       $clamd_group              = 'virusgroup'
-      
+
       #clamav-milter
       $clamav_milter_service            = 'clamav-milter'
       $clamav_milter_group              = 'virusgroup'
