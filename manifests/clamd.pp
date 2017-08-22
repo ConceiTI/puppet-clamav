@@ -80,11 +80,11 @@ class clamav::clamd (
   Optional[String]  $clamd_tcp_addr                               = '127.0.0.1',
   Optional[Integer] $clamd_stream_min_port                        = 1024,
   Optional[Integer] $clamd_stream_max_port                        = 2048,
-  Optional[String]  $clamd_exclude_path                           = '^/proc/', # Array
+  Optional[Array]   $clamd_exclude_path                           = ['^/proc/','^/sys/'], # Array
   Optional[String]  $clamd_virus_event                            = '/usr/local/bin/send_sms 123456789 "VIRUS ALERT: %v"',
   Optional[String]  $clamd_allow_supplementary_groups             = undef, #'yes',
-  Optional[String]  $clamd_exclude_pua                            = 'NetTool', #Arra
-  Optional[Array]   $clamd_include_pua                            = ['Scanner','RAT','Spy'],  #Array
+  Optional[Array]   $clamd_exclude_pua                            = ['NetTool'],
+  Optional[Array]   $clamd_include_pua                            = ['Scanner','RAT','Spy'],
   Optional[String]  $clamd_disable_cache                          = 'yes',
   Optional[String]  $clamd_scan_pdf                               = 'yes',
   Optional[String]  $clamd_scan_xml_docs                          = 'yes',

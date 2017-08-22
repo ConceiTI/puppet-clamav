@@ -250,7 +250,10 @@ IdleTimeout <%= $clamav::clamd::clamd_idle_timeout %>
 #ExcludePath ^/proc/
 #ExcludePath ^/sys/
 <% if $clamav::clamd::clamd_exclude_path { -%>
-ExcludePath <%= $clamav::clamd::clamd_exclude_path %>
+<% $clamav::clamd::clamd_exclude_path.each |$key| { -%>
+ExcludePath <%= $key %>
+<% } -%>
+
 <% } -%>
 
 # Maximum depth directories are scanned at.
@@ -359,7 +362,9 @@ DetectPUA <%= $clamav::clamd::clamd_detect_pua %>
 #ExcludePUA NetTool
 #ExcludePUA PWTool
 <% if $clamav::clamd::clamd_exclude_pua { -%>
-ExcludePUA <%= $clamav::clamd::clamd_exclude_pua %>
+<% $clamav::clamd::clamd_exclude_pua.each |$key| { -%>
+ExcludePUA <%= $key %>
+<% } -%>
 <% } -%>
 
 # Only include a specific PUA category. This directive can be used multiple
@@ -372,7 +377,6 @@ ExcludePUA <%= $clamav::clamd::clamd_exclude_pua %>
 <% $clamav::clamd::clamd_include_pua.each |$key| { -%>
 IncludePUA <%= $key %>
 <% } -%>
-IncludePUA <%= $clamav::clamd::clamd_include_pua %>
 <% } -%>
 
 # In some cases (eg. complex malware, exploits in graphic files, and others),
